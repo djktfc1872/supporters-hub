@@ -25,7 +25,6 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Helper for "2 hours ago" style timestamps
 function timeAgo(timestamp) {
   const seconds = Math.floor((Date.now() - timestamp) / 1000);
   let interval = Math.floor(seconds / 31536000);
@@ -46,7 +45,14 @@ export default function App() {
   const [feedback, setFeedback] = useState('');
   const [ideas, setIdeas] = useState([]);
   const [pollResults, setPollResults] = useState({ 
-    'Online Forum': 0, 'WhatsApp Group': 0, 'Email Updates': 0, 'Face-to-Face': 0 
+    'Online Forum': 0, 
+    'WhatsApp Group': 0, 
+    'Email Updates': 0, 
+    'Face-to-Face Meetings': 0,
+    'Matchday Presence': 0,
+    'Video Updates': 0,
+    'Monthly Newsletter': 0,
+    'Physical Print Options': 0
   });
   const [voted, setVoted] = useState(localStorage.getItem('ktfcsa_voted_comm') === 'true');
 
@@ -81,7 +87,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#050505] text-white font-sans flex flex-col antialiased">
-      {/* Header */}
       <div className="relative w-full overflow-hidden border-b-4 border-[#910b0b] bg-[#0a0a0a]">
         <img src="/hero-banner.jpg" className="absolute w-full h-full object-cover opacity-30" alt="" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent"></div>
@@ -106,32 +111,34 @@ export default function App() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           <div className="lg:col-span-8 flex flex-col gap-8">
-            
-            {/* Tab 1: Polls (Auto-height aligned) */}
             {activeTab === 'polls' && (
               <div className="bg-[#141414] border border-white/10 rounded-3xl p-8 shadow-xl animate-in fade-in slide-in-from-bottom-4 flex-grow flex flex-col">
                 <h2 className="text-2xl font-black uppercase text-[#d4af37] mb-2 tracking-tight">Communication</h2>
                 <p className="text-zinc-500 text-sm mb-6 uppercase tracking-wider font-bold">Where should we focus our updates?</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-grow content-start">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 flex-grow content-start">
                   {Object.entries(pollResults).map(([opt, count]) => {
                     const total = Object.values(pollResults).reduce((a, b) => a + b, 0) || 1;
                     const pct = Math.round((count / total) * 100);
                     return (
-                      <button key={opt} onClick={() => handleVote(opt)} className={`group w-full text-left p-6 rounded-2xl border transition-all ${voted ? 'border-white/5 cursor-default' : 'border-white/10 hover:border-[#d4af37]/50 bg-white/[0.02]'}`}>
-                        <div className="flex justify-between mb-3"><span className="font-black text-sm tracking-tight">{opt}</span>{voted && <span className="text-[#d4af37] font-mono">{pct}%</span>}</div>
-                        <div className="h-1.5 bg-black rounded-full overflow-hidden"><div className="h-full bg-[#d4af37] transition-all duration-1000" style={{ width: `${voted ? pct : 0}%` }} /></div>
+                      <button key={opt} onClick={() => handleVote(opt)} className={`group w-full text-left p-5 rounded-xl border transition-all ${voted ? 'border-white/5 bg-white/[0.01] cursor-default' : 'border-white/10 hover:border-[#d4af37]/50 bg-white/[0.02]'}`}>
+                        <div className="flex justify-between mb-2">
+                          <span className="font-black text-[11px] uppercase tracking-wider">{opt}</span>
+                          <span className={`text-[#d4af37] font-mono text-sm transition-opacity duration-500 ${voted ? 'opacity-100' : 'opacity-0'}`}>{pct}%</span>
+                        </div>
+                        <div className="h-1 bg-black rounded-full overflow-hidden">
+                          <div className="h-full bg-[#d4af37] transition-all duration-1000" style={{ width: `${voted ? pct : 0}%` }} />
+                        </div>
                       </button>
                     );
                   })}
                 </div>
-                <div className="mt-12 pt-6 border-t border-white/5 flex items-center justify-between text-zinc-500">
-                   <p className="text-[10px] font-bold uppercase tracking-widest flex items-center gap-2"><MessageCircle size={14} className="text-[#910b0b]"/> Have another preference?</p>
-                   <button onClick={() => setActiveTab('blueprint')} className="text-[#d4af37] text-[10px] font-black uppercase tracking-[0.2em] hover:text-white transition-colors">Post on the Fan Wall</button>
+                <div className="mt-8 pt-6 border-t border-white/5 flex items-center justify-between text-zinc-500">
+                   <p className="text-[9px] font-bold uppercase tracking-widest flex items-center gap-2"><MessageCircle size={14} className="text-[#910b0b]"/> Have another preference?</p>
+                   <button onClick={() => setActiveTab('blueprint')} className="text-[#d4af37] text-[9px] font-black uppercase tracking-[0.2em] hover:text-white transition-colors">Post on the Fan Wall</button>
                 </div>
               </div>
             )}
 
-            {/* Tab 2: Fan Wall (With timestamps & intro) */}
             {activeTab === 'blueprint' && (
               <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4">
                 <div className="bg-[#141414] p-8 rounded-3xl border border-white/10 shadow-xl">
@@ -159,7 +166,6 @@ export default function App() {
               </div>
             )}
 
-            {/* Tab 3: Join (Auto-height aligned) */}
             {activeTab === 'join' && (
               <div className="bg-[#141414] p-16 rounded-3xl border border-white/10 text-center shadow-2xl animate-in zoom-in-95 flex-grow flex flex-col justify-center">
                 <div className="w-20 h-20 bg-[#d4af37]/10 rounded-full flex items-center justify-center mx-auto mb-8 text-[#d4af37]"><Users size={40} /></div>
@@ -170,7 +176,6 @@ export default function App() {
             )}
           </div>
 
-          {/* Sidebar */}
           <div className="lg:col-span-4 space-y-6 flex flex-col h-full">
             <div className="bg-[#141414] border border-white/10 rounded-3xl p-8 shadow-xl">
               <h4 className="text-[#d4af37] font-black uppercase text-xs tracking-[0.2em] mb-6 flex items-center gap-2"><ShieldCheck size={16} /> Our Foundation</h4>
@@ -193,16 +198,12 @@ export default function App() {
       <footer className="w-full bg-[#0a0a0a] border-t-4 border-[#910b0b] mt-20 pb-12">
         <div className="max-w-6xl mx-auto px-8 pt-12 flex flex-col md:flex-row items-center justify-between gap-10">
           <div className="flex flex-col items-center md:items-start">
-            <p className="text-zinc-500 text-[11px] uppercase font-black tracking-[0.4em] leading-loose text-center md:text-left">
-              Kettering Town Supporters' Association
-            </p>
+            <p className="text-zinc-500 text-[11px] uppercase font-black tracking-[0.4em] leading-loose text-center md:text-left">Kettering Town Supporters' Association</p>
             <p className="text-[#910b0b] text-[9px] uppercase font-black tracking-[0.3em] mt-1 text-center md:text-left">Poppies Forever</p>
           </div>
-
           <div className="flex flex-col items-center md:items-end gap-8">
             <a href="https://ktfcsa.com" className="flex items-center gap-3 bg-[#d4af37] text-black px-10 py-4 rounded-full text-[11px] font-black uppercase tracking-[0.2em] hover:bg-white transition-all group shadow-2xl">
-              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 
-              Back to Main Website
+              <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Back to Main Website
             </a>
             <p className="text-zinc-800 text-[9px] uppercase font-black tracking-[0.2em] text-center md:text-right font-mono">
               &copy; 2026 Kettering Town Supporters' Association | By the Fans, For the Fans
