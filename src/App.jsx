@@ -164,7 +164,7 @@ export default function App() {
           
           <div className="flex flex-col items-center md:items-end gap-4">
             <a 
-              href="https://yourmainsite.com" 
+              href="https://ktfcsa.com" 
               className="flex items-center gap-2 text-[#d4af37] text-[11px] font-black uppercase tracking-[0.2em] hover:text-white transition-colors group"
             >
               <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
