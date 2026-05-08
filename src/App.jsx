@@ -173,7 +173,7 @@ export default function App() {
               <div className="bg-[#141414] p-16 rounded-3xl border border-white/10 text-center shadow-2xl animate-in zoom-in-95 flex-grow flex flex-col justify-center">
                 <div className="w-20 h-20 bg-[#d4af37]/10 rounded-full flex items-center justify-center mx-auto mb-8 text-[#d4af37]"><Users size={40} /></div>
                 <h2 className="text-4xl font-black uppercase mb-4 tracking-tighter">Join the Movement</h2>
-                <p className="text-zinc-400 mb-10 max-w-md mx-auto text-lg font-medium leading-relaxed">We are currently forming the working group. If you have skills in legal, planning, or community organising, get in touch.</p>
+                <p className="text-zinc-400 mb-10 max-w-md mx-auto text-lg font-medium leading-relaxed">We are currently forming the working group. If you're interested in playing a part, or have skills in areas that could be helpful such as planning or community engagement (football or otherwise), please get in touch. Any and all support is welcomed.</p>
                 <button onClick={() => window.location.href='mailto:hello@ktfcsa.com'} className="bg-[#d4af37] text-black px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-white transition-all mx-auto shadow-xl shadow-[#d4af37]/10">Email the Working Group</button>
               </div>
             )}
