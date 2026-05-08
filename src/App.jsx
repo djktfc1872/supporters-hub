@@ -209,9 +209,9 @@ export default function App() {
           {/* Left Side: Aligned with the button height */}
           <div className="flex flex-col items-center md:items-start justify-center min-h-[50px]">
             <p className="text-zinc-100 text-[11px] uppercase font-black tracking-[0.4em] leading-loose text-center md:text-left">
-              Kettering Town <br className="md:hidden" /> Supporters' Association
+              Kettering Town FC<br className="md:hidden" /> Supporters' Association
             </p>
-            <p className="text-[#910b0b] text-[10px] uppercase font-black tracking-[0.3em] mt-1 text-center md:text-left">Poppies Forever</p>
+            <p className="text-[#910b0b] text-[10px] uppercase font-black tracking-[0.3em] mt-1 text-center md:text-left">FOUNDED 2026</p>
           </div>
 
           {/* Right Side */}
@@ -220,14 +220,6 @@ export default function App() {
               <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 
               Back to Main Website
             </a>
-            <div className="text-center md:text-right">
-              <p className="text-zinc-100 text-[9px] uppercase font-black tracking-[0.2em] font-mono opacity-80">
-                &copy; 2026 Kettering Town Supporters' Association
-              </p>
-              <p className="text-zinc-500 text-[8px] uppercase font-bold tracking-[0.1em] mt-1">
-                By the Fans, For the Fans
-              </p>
-            </div>
           </div>
         </div>
       </footer>
